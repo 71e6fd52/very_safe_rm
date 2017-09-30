@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'very_safe_rm'
+
+file, args = VerySafeRm.parse ARGV
+
+VerySafeRm.run file, args
