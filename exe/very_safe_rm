@@ -4,4 +4,9 @@ require 'very_safe_rm'
 
 file, args = VerySafeRm.parse ARGV
 
+if file.empty?
+  puts `rm`
+  exit
+end
+
 VerySafeRm.run file, args
