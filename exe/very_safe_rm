@@ -5,7 +5,7 @@ require 'very_safe_rm'
 file, args = VerySafeRm.parse ARGV
 
 if file.empty?
-  puts `rm`
+  system 'rm'
   exit
 end
 
