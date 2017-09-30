@@ -4,9 +4,17 @@ require 'very_safe_rm'
 
 file, args = VerySafeRm.parse ARGV
 
+if args.include? '--version'
+  print 'very_safe_rm '
+  puts VerySafeRm::VERSION
+  puts
+  system 'rm --version'
+  exit
+end
+
 if file.empty?
   system 'rm'
-  exit
+  exit 1
 end
 
 if args.include?('-r') || args.include?('-R') || args.include?('--recursive')
