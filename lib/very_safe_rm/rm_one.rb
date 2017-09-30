@@ -1,6 +1,11 @@
 module VerySafeRm
   # TODO
   module RM
+    def self.do_rm(file, args)
+      return if RM.check_bang file
+      system "rm #{args.join ' '} #{file}"
+    end
+
     def self.rm_one(file, args)
       filesystem = `stat -fc %T #{file}`
       if filesystem == 'nilfs' then RM.do_rm file, ['-rvf']
@@ -10,8 +15,12 @@ module VerySafeRm
       end
     end
 
-    def self.do_rm(file, args)
-      system "rm #{args.join ' '} #{file}"
+    def self.check_bang(file)
+      file.reverse.each_char do |char|
+        return true unless char == '!'
+        STDERR.print "Did you really want to delete `#{file}? [y/N] "
+        return false unless STDIN.gets =~ /^y(es)?$/i
+      end
     end
   end
 end
