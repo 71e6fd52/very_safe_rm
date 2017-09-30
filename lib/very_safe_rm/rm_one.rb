@@ -11,7 +11,7 @@ module VerySafeRm
     end
 
     def self.do_rm(file, args)
-      `rm #{args.join ' '} #{file}`
+      puts `rm #{args.join ' '} #{file}`
     end
   end
 end
