@@ -3,6 +3,7 @@ module VerySafeRm
   module RM
     def self.do_rm(file, args)
       return if RM.check_bang file
+      sleep 2
       system "rm #{args.join ' '} #{file}"
     end
 
