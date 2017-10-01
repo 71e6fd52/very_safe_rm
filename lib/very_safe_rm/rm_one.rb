@@ -17,9 +17,9 @@ module VerySafeRm
 
     def self.check_bang(file)
       file.reverse.each_char do |char|
-        return true unless char == '!'
+        return false unless char == '!'
         STDERR.print "Did you really want to delete `#{file}? [y/N] "
-        return false unless STDIN.gets =~ /^y(es)?$/i
+        return true unless STDIN.gets =~ /^y(es)?$/i
       end
     end
   end
