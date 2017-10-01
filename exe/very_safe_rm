@@ -2,7 +2,7 @@
 
 require 'very_safe_rm'
 
-file, args = VerySafeRm.parse ARGV
+file, args = VerySafeRm::Arg.parse ARGV
 
 if args.include? '--version'
   print 'very_safe_rm '
