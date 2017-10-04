@@ -1,19 +1,31 @@
 module VerySafeRm
   # TODO
   module RM
+    def self.rm(file, args)
+      system "rm #{args.join ' '} #{file}"
+    end
+
     def self.do_rm(file, args)
       return if RM.check_bang file
       sleep 2
-      system "rm #{args.join ' '} #{file}"
+      RM.rm file, args
     end
 
     def self.rm_one(file, args)
       filesystem = `stat -fc %T #{file}`
-      if filesystem == 'nilfs' then RM.do_rm file, ['-rvf']
-      elsif Dir.empty? file then RM.do_rm file, ['-rfv']
-      elsif File.empty? file then RM.do_rm file, ['-fv']
-      else RM.do_rm file, ['-iv', *args]
+      if filesystem == 'nilfs' then RM.rm file, ['-r', '-v', '-f']
+      elsif Dir.empty? file then RM.rm file, ['-r', '-f', '-v']
+      elsif File.empty? file then RM.rm file, ['-f', '-v']
+      elsif RM.check_force_rm? file then RM.rm file, ['-v', *args]
+      else RM.do_rm file, ['-i', '-v', *args]
       end
+    end
+
+    def self.check_force_rm(file)
+      return false unless File.exist? \
+        File.expand_path("-#{file}.rm", File.dirname(file))
+      RM.rm "-#{file}.rm", ['-r', '-f']
+      true
     end
 
     def self.check_bang(file)
