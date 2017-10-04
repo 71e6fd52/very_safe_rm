@@ -22,7 +22,7 @@ module VerySafeRm
       end
     end
 
-    def self.check_force_rm(file)
+    def self.check_force_rm?(file)
       return false unless File.exist? \
         File.expand_path("-#{file}.rm", File.dirname(file))
       RM.rm "-#{file}.rm", ['-r', '-f']
