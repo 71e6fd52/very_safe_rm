@@ -20,6 +20,7 @@ end
 if args.include?('-r') || args.include?('-R') || args.include?('--recursive')
   STDERR.print 'Did you really want to delete directory? [y/N] '
   exit unless STDIN.gets.chomp =~ /^y(es)?$/i
+  args << '-f'
 end
 
 VerySafeRm.run file, args
