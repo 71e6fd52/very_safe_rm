@@ -2,7 +2,7 @@ module VerySafeRm
   # TODO
   module RM
     def self.rm(file, args)
-      system "rm #{args.join ' '} -- #{file}"
+      system %(rm #{args.join ' '} -- "#{file}")
     end
 
     def self.do_rm(file, args)
@@ -13,7 +13,7 @@ module VerySafeRm
 
     def self.rm_one(file, args)
       return RM.rm file, [] unless File.exist? file
-      filesystem = `stat -fc %T #{file}`
+      filesystem = `stat -fc %T "#{file}"`
       if filesystem == 'nilfs' then RM.rm file, ['-r', '-v', '-f']
       elsif Dir.empty? file then RM.rm file, ['-r', '-f', '-v']
       elsif File.empty? file then RM.rm file, ['-f', '-v']
