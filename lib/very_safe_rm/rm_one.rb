@@ -7,7 +7,7 @@ module VerySafeRm
 
     def self.do_rm(file, args)
       return if RM.check_bang file
-      sleep 2
+      sleep 3 if args.include?('-f') || args.include?('--force')
       RM.rm file, args
     end
 
