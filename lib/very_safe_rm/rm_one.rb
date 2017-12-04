@@ -1,7 +1,7 @@
 module VerySafeRm
   module RM
     def self.rm(file, args)
-      system %(rm #{args.join ' '} -- "#{file}")
+      system %(/bin/rm #{args.join ' '} -- "#{file}")
     end
 
     def self.do_rm(file, args)

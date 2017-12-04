@@ -8,17 +8,17 @@ if args.include? '--version'
   print 'very_safe_rm '
   puts VerySafeRm::VERSION
   puts
-  system 'rm --version'
+  system '/bin/rm --version'
   exit
 end
 
 if args.include? '--help'
-  system ['rm', $PROGRAM_NAME], '--help'
+  system ['/bin/rm', $PROGRAM_NAME], '--help'
   exit
 end
 
 if file.empty?
-  system 'rm'
+  system ['/bin/rm', $PROGRAM_NAME]
   exit 1
 end
 
