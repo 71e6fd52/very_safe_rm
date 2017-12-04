@@ -27,4 +27,11 @@ if args.include?('-r') || args.include?('-R') || args.include?('--recursive')
   exit unless STDIN.gets.chomp =~ /^y(es)?$/i
 end
 
+if args.include?('-f') || args.include?('--force')
+  STDERR.print 'Did you really want to delete? [y/N] '
+  exit unless STDIN.gets.chomp =~ /^y(es)?$/i
+  STDERR.print 'Alright, I will wait you for 5 second'
+  sleep 5
+end
+
 VerySafeRm.run file, args

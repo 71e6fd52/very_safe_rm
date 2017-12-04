@@ -1,13 +1,8 @@
 module VerySafeRm
   module RM
     def self.rm(file, args)
-      system %(/bin/rm #{args.join ' '} -- "#{file}")
-    end
-
-    def self.do_rm(file, args)
       return if RM.check_bang file
-      sleep 3 if args.include?('-f') || args.include?('--force')
-      RM.rm file, args
+      system %(/bin/rm #{args.join ' '} -- "#{file}")
     end
 
     def self.rm_one(file, args)
@@ -17,7 +12,7 @@ module VerySafeRm
       elsif Dir.empty? file then RM.rm file, ['-r', '-f', '-v']
       elsif File.empty? file then RM.rm file, ['-f', '-v']
       elsif RM.check_force_rm? file then RM.rm file, ['-v', *args]
-      else RM.do_rm file, ['-i', '-v', *args]
+      else RM.rm file, ['-i', '-v', *args]
       end
     end
 
