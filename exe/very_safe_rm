@@ -12,6 +12,11 @@ if args.include? '--version'
   exit
 end
 
+if args.include? '--help'
+  system ['rm', $PROGRAM_NAME], '--help'
+  exit
+end
+
 if file.empty?
   system 'rm'
   exit 1
