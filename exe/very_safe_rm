@@ -30,7 +30,7 @@ end
 if args.include?('-f') || args.include?('--force')
   STDERR.print 'Did you really want to delete? [y/N] '
   exit unless STDIN.gets.chomp =~ /^y(es)?$/i
-  STDERR.print 'Alright, I will wait you for 5 second'
+  STDERR.puts 'Alright, I will wait you for 5 second'
   sleep 5
 end
 
