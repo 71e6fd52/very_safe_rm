@@ -2,7 +2,7 @@ module VerySafeRm
   module RM
     def self.rm(file, args)
       return if RM.check_bang file
-      system ['/bin/rm', $0], *args, '--', file
+      system ['/bin/rm', $PROGRAM_NAME], *args, '--', file
     end
 
     def self.rm_one(file, args)

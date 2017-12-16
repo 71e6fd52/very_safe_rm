@@ -13,12 +13,12 @@ if args.include? '--version'
 end
 
 if args.include? '--help'
-  system ['/bin/rm', $0], '--help'
+  system ['/bin/rm', $PROGRAM_NAME], '--help'
   exit
 end
 
 if file.empty?
-  system ['/bin/rm', $0]
+  system ['/bin/rm', $PROGRAM_NAME]
   exit 1
 end
 
